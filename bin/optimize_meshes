@@ -56,9 +56,15 @@ fi
 #Process files
 for fullfile in "$@"
 do
-  echo ""
-  echo "Processing $fullfile file to $of"
-  
-  OSG_OPTIMIZER="INDEX_MESH STATIC_OBJECT_DETECTION VERTEX_POSTTRANSFORM" osgconv $OSGCONVARGS $fullfile $fullfile.osgb
+
+  case "$fullfile" in
+    *.osgb)
+      ;;
+    *)
+      echo ""
+      echo "Processing $fullfile file to $fullfile.osgb"
+      OSG_OPTIMIZER="INDEX_MESH STATIC_OBJECT_DETECTION VERTEX_POSTTRANSFORM" osgconv $OSGCONVARGS $fullfile $fullfile.osgb
+      ;;
+  esac
 done
 
